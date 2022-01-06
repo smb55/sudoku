@@ -36,120 +36,62 @@ class SudokuPuzzle:
         if len(values_list) != 81:
             raise SudokuError('value_list arg is incorrect length. must be 81.')
 
-        # convert characters into SudokuValue objects    
-        self.a1 = SudokuValue(values_list[0])
-        self.a2 = SudokuValue(values_list[1])
-        self.a3 = SudokuValue(values_list[2])
-        self.a4 = SudokuValue(values_list[3])
-        self.a5 = SudokuValue(values_list[4])
-        self.a6 = SudokuValue(values_list[5])
-        self.a7 = SudokuValue(values_list[6])
-        self.a8 = SudokuValue(values_list[7])
-        self.a9 = SudokuValue(values_list[8])
-        self.b1 = SudokuValue(values_list[9])
-        self.b2 = SudokuValue(values_list[10])
-        self.b3 = SudokuValue(values_list[11])
-        self.b4 = SudokuValue(values_list[12])
-        self.b5 = SudokuValue(values_list[13])
-        self.b6 = SudokuValue(values_list[14])
-        self.b7 = SudokuValue(values_list[15])
-        self.b8 = SudokuValue(values_list[16])
-        self.b9 = SudokuValue(values_list[17])
-        self.c1 = SudokuValue(values_list[18])
-        self.c2 = SudokuValue(values_list[19])
-        self.c3 = SudokuValue(values_list[20])
-        self.c4 = SudokuValue(values_list[21])
-        self.c5 = SudokuValue(values_list[22])
-        self.c6 = SudokuValue(values_list[23])
-        self.c7 = SudokuValue(values_list[24])
-        self.c8 = SudokuValue(values_list[25])
-        self.c9 = SudokuValue(values_list[26])
-        self.d1 = SudokuValue(values_list[27])
-        self.d2 = SudokuValue(values_list[28])
-        self.d3 = SudokuValue(values_list[29])
-        self.d4 = SudokuValue(values_list[30])
-        self.d5 = SudokuValue(values_list[31])
-        self.d6 = SudokuValue(values_list[32])
-        self.d7 = SudokuValue(values_list[33])
-        self.d8 = SudokuValue(values_list[34])
-        self.d9 = SudokuValue(values_list[35])
-        self.e1 = SudokuValue(values_list[36])
-        self.e2 = SudokuValue(values_list[37])
-        self.e3 = SudokuValue(values_list[38])
-        self.e4 = SudokuValue(values_list[39])
-        self.e5 = SudokuValue(values_list[40])
-        self.e6 = SudokuValue(values_list[41])
-        self.e7 = SudokuValue(values_list[42])
-        self.e8 = SudokuValue(values_list[43])
-        self.e9 = SudokuValue(values_list[44])
-        self.f1 = SudokuValue(values_list[45])
-        self.f2 = SudokuValue(values_list[46])
-        self.f3 = SudokuValue(values_list[47])
-        self.f4 = SudokuValue(values_list[48])
-        self.f5 = SudokuValue(values_list[49])
-        self.f6 = SudokuValue(values_list[50])
-        self.f7 = SudokuValue(values_list[51])
-        self.f8 = SudokuValue(values_list[52])
-        self.f9 = SudokuValue(values_list[53])
-        self.g1 = SudokuValue(values_list[54])
-        self.g2 = SudokuValue(values_list[55])
-        self.g3 = SudokuValue(values_list[56])
-        self.g4 = SudokuValue(values_list[57])
-        self.g5 = SudokuValue(values_list[58])
-        self.g6 = SudokuValue(values_list[59])
-        self.g7 = SudokuValue(values_list[60])
-        self.g8 = SudokuValue(values_list[61])
-        self.g9 = SudokuValue(values_list[62])
-        self.h1 = SudokuValue(values_list[63])
-        self.h2 = SudokuValue(values_list[64])
-        self.h3 = SudokuValue(values_list[65])
-        self.h4 = SudokuValue(values_list[66])
-        self.h5 = SudokuValue(values_list[67])
-        self.h6 = SudokuValue(values_list[68])
-        self.h7 = SudokuValue(values_list[69])
-        self.h8 = SudokuValue(values_list[70])
-        self.h9 = SudokuValue(values_list[71])
-        self.i1 = SudokuValue(values_list[72])
-        self.i2 = SudokuValue(values_list[73])
-        self.i3 = SudokuValue(values_list[74])
-        self.i4 = SudokuValue(values_list[75])
-        self.i5 = SudokuValue(values_list[76])
-        self.i6 = SudokuValue(values_list[77])
-        self.i7 = SudokuValue(values_list[78])
-        self.i8 = SudokuValue(values_list[79])
-        self.i9 = SudokuValue(values_list[80])
-
+        # convert characters into SudokuValue objects
+        self.varList = []
+        for letter in ['a','b','c','d','e','f','g','h','i']:
+            for num in range(1,10):
+                var_string = letter + str(num)
+                self.varList.append(var_string)
+                
+        self.varDict = {var: SudokuValue(values_list[index]) for index, var in enumerate(self.varList)}
+     
         # create lists for each box, column, and row so that we can check what numbers are in each later
 
-        self.box1 = [self.a1, self.a2, self.a3, self.b1, self.b2, self.b3, self.c1, self.c2, self.c3]
-        self.box2 = [self.a4, self.a5, self.a6, self.b4, self.b5, self.b6, self.c4, self.c5, self.c6]
-        self.box3 = [self.a7, self.a8, self.a9, self.b7, self.b8, self.b9, self.c7, self.c8, self.c9]
-        self.box4 = [self.d1, self.d2, self.d3, self.e1, self.e2, self.e3, self.f1, self.f2, self.f3]
-        self.box5 = [self.d4, self.d5, self.d6, self.e4, self.e5, self.e6, self.f4, self.f5, self.f6]
-        self.box6 = [self.d7, self.d8, self.d9, self.e7, self.e8, self.e9, self.f7, self.f8, self.f9]
-        self.box7 = [self.g1, self.g2, self.g3, self.h1, self.h2, self.h3, self.i1, self.i2, self.i3]
-        self.box8 = [self.g4, self.g5, self.g6, self.h4, self.h5, self.h6, self.i4, self.i5, self.i6]
-        self.box9 = [self.g7, self.g8, self.g9, self.h7, self.h8, self.h9, self.i7, self.i8, self.i9]
+        self.box1 = []
+        self.box2 = []
+        self.box3 = []
+        self.box4 = []
+        self.box5 = []
+        self.box6 = []
+        self.box7 = []
+        self.box8 = []
+        self.box9 = []
+           
+        self.boxes = [self.box1, self.box2, self.box3, self.box4, self.box5, self.box6, self.box7, self.box8, self.box9]
+        self.startingIndicies = [0,3,6,27,30,33,54,57,60]
+        self.boxStarts = zip(self.boxes, self.startingIndicies)
+        # adding the variable objects to the box list is a little more complex. This system should assign the correct numbers to the correct boxes.
+        # using the starting index and adding values with indexes set by the list num
 
-        self.rowA = [self.a1, self.a2, self.a3, self.a4, self.a5, self.a6, self.a7, self.a8, self.a9]
-        self.rowB = [self.b1, self.b2, self.b3, self.b4, self.b5, self.b6, self.b7, self.b8, self.b9]
-        self.rowC = [self.c1, self.c2, self.c3, self.c4, self.c5, self.c6, self.c7, self.c8, self.c9]
-        self.rowD = [self.d1, self.d2, self.d3, self.d4, self.d5, self.d6, self.d7, self.d8, self.d9]
-        self.rowE = [self.e1, self.e2, self.e3, self.e4, self.e5, self.e6, self.e7, self.e8, self.e9]
-        self.rowF = [self.f1, self.f2, self.f3, self.f4, self.f5, self.f6, self.f7, self.f8, self.f9]
-        self.rowG = [self.g1, self.g2, self.g3, self.g4, self.g5, self.g6, self.g7, self.g8, self.g9]
-        self.rowH = [self.h1, self.h2, self.h3, self.h4, self.h5, self.h6, self.h7, self.h8, self.h9]
-        self.rowI = [self.i1, self.i2, self.i3, self.i4, self.i5, self.i6, self.i7, self.i8, self.i9]
+        # the below lookup system uses the integers in the ranges to determine the box from 0-80 (left - right, top down)
+        # it then references varList to get the name of the variable (eg a1)
+        # it then looks up the name in the varDict to locate the specific object
+        
+        for box, startIndex in self.boxStarts:
+            for num in [0,1,2,9,10,11,18,19,20]:
+                box.append(self.varDict[self.varList[startIndex + num]])
 
-        self.column1 = [self.a1, self.b1, self.c1, self.d1, self.e1, self.f1, self.g1, self.h1, self.i1]
-        self.column2 = [self.a2, self.b2, self.c2, self.d2, self.e2, self.f2, self.g2, self.h2, self.i2]
-        self.column3 = [self.a3, self.b3, self.c3, self.d3, self.e3, self.f3, self.g3, self.h3, self.i3]
-        self.column4 = [self.a4, self.b4, self.c4, self.d4, self.e4, self.f4, self.g4, self.h4, self.i4]
-        self.column5 = [self.a5, self.b5, self.c5, self.d5, self.e5, self.f5, self.g5, self.h5, self.i5]
-        self.column6 = [self.a6, self.b6, self.c6, self.d6, self.e6, self.f6, self.g6, self.h6, self.i6]
-        self.column7 = [self.a7, self.b7, self.c7, self.d7, self.e7, self.f7, self.g7, self.h7, self.i7]
-        self.column8 = [self.a8, self.b8, self.c8, self.d8, self.e8, self.f8, self.g8, self.h8, self.i8]
-        self.column9 = [self.a9, self.b9, self.c9, self.d9, self.e9, self.f9, self.g9, self.h9, self.i9]
+        # rows are simple - just add variables in order across the line
+        self.rowA = [self.varDict[self.varList[index]] for index in range(9)]
+        self.rowB = [self.varDict[self.varList[index]] for index in range(9,18)]
+        self.rowC = [self.varDict[self.varList[index]] for index in range(18,27)]
+        self.rowD = [self.varDict[self.varList[index]] for index in range(27,36)]
+        self.rowE = [self.varDict[self.varList[index]] for index in range(36,45)]
+        self.rowF = [self.varDict[self.varList[index]] for index in range(45,54)]
+        self.rowG = [self.varDict[self.varList[index]] for index in range(54,63)]
+        self.rowH = [self.varDict[self.varList[index]] for index in range(63,72)]
+        self.rowI = [self.varDict[self.varList[index]] for index in range(72,81)]
+
+        # for colums, the index just goes up in multiples of 9
+        self.column1 = [self.varDict[self.varList[index]] for index in range(0,72,9)]
+        self.column2 = [self.varDict[self.varList[index]] for index in range(1,73,9)]
+        self.column3 = [self.varDict[self.varList[index]] for index in range(2,74,9)]
+        self.column4 = [self.varDict[self.varList[index]] for index in range(3,75,9)]
+        self.column5 = [self.varDict[self.varList[index]] for index in range(4,76,9)]
+        self.column6 = [self.varDict[self.varList[index]] for index in range(5,77,9)]
+        self.column7 = [self.varDict[self.varList[index]] for index in range(6,78,9)]
+        self.column8 = [self.varDict[self.varList[index]] for index in range(7,79,9)]
+        self.column9 = [self.varDict[self.varList[index]] for index in range(8,80,9)]
 
         # create a list of rows
         self.rows = [self.rowA, self.rowB, self.rowC, self.rowD, self.rowE, self.rowF, self.rowG,
@@ -171,90 +113,13 @@ class SudokuPuzzle:
                 if groupList.count(str(character)) > 1:
                     raise SudokuError('Invalid sudoku: number clash')
 
-    # this is required to restore the board from a backup in the case of an impossible chain
+    # this function sets the sudoku values based on a saved list. This is required to restore the board from a backup when a recursion chain
+    # hits an impossibility and needs to return to a previous level.
     def set_values(self, values_list):
-        self.a1.set(values_list[0])
-        self.a2.set(values_list[1])
-        self.a3.set(values_list[2])
-        self.a4.set(values_list[3])
-        self.a5.set(values_list[4])
-        self.a6.set(values_list[5])
-        self.a7.set(values_list[6])
-        self.a8.set(values_list[7])
-        self.a9.set(values_list[8])
-        self.b1.set(values_list[9])
-        self.b2.set(values_list[10])
-        self.b3.set(values_list[11])
-        self.b4.set(values_list[12])
-        self.b5.set(values_list[13])
-        self.b6.set(values_list[14])
-        self.b7.set(values_list[15])
-        self.b8.set(values_list[16])
-        self.b9.set(values_list[17])
-        self.c1.set(values_list[18])
-        self.c2.set(values_list[19])
-        self.c3.set(values_list[20])
-        self.c4.set(values_list[21])
-        self.c5.set(values_list[22])
-        self.c6.set(values_list[23])
-        self.c7.set(values_list[24])
-        self.c8.set(values_list[25])
-        self.c9.set(values_list[26])
-        self.d1.set(values_list[27])
-        self.d2.set(values_list[28])
-        self.d3.set(values_list[29])
-        self.d4.set(values_list[30])
-        self.d5.set(values_list[31])
-        self.d6.set(values_list[32])
-        self.d7.set(values_list[33])
-        self.d8.set(values_list[34])
-        self.d9.set(values_list[35])
-        self.e1.set(values_list[36])
-        self.e2.set(values_list[37])
-        self.e3.set(values_list[38])
-        self.e4.set(values_list[39])
-        self.e5.set(values_list[40])
-        self.e6.set(values_list[41])
-        self.e7.set(values_list[42])
-        self.e8.set(values_list[43])
-        self.e9.set(values_list[44])
-        self.f1.set(values_list[45])
-        self.f2.set(values_list[46])
-        self.f3.set(values_list[47])
-        self.f4.set(values_list[48])
-        self.f5.set(values_list[49])
-        self.f6.set(values_list[50])
-        self.f7.set(values_list[51])
-        self.f8.set(values_list[52])
-        self.f9.set(values_list[53])
-        self.g1.set(values_list[54])
-        self.g2.set(values_list[55])
-        self.g3.set(values_list[56])
-        self.g4.set(values_list[57])
-        self.g5.set(values_list[58])
-        self.g6.set(values_list[59])
-        self.g7.set(values_list[60])
-        self.g8.set(values_list[61])
-        self.g9.set(values_list[62])
-        self.h1.set(values_list[63])
-        self.h2.set(values_list[64])
-        self.h3.set(values_list[65])
-        self.h4.set(values_list[66])
-        self.h5.set(values_list[67])
-        self.h6.set(values_list[68])
-        self.h7.set(values_list[69])
-        self.h8.set(values_list[70])
-        self.h9.set(values_list[71])
-        self.i1.set(values_list[72])
-        self.i2.set(values_list[73])
-        self.i3.set(values_list[74])
-        self.i4.set(values_list[75])
-        self.i5.set(values_list[76])
-        self.i6.set(values_list[77])
-        self.i7.set(values_list[78])
-        self.i8.set(values_list[79])
-        self.i9.set(values_list[80])
+        for index, var in enumerate(self.varList):
+            self.varDict[var].set(values_list[index])
 
+        
     def assign_seeds(self):
         '''this function (somewhat) randomly assignes the seed boxes. seed boxes are staticly assigned,
             however values are three of each integer randomly placed in the static box positions.'''
@@ -374,8 +239,8 @@ class SudokuPuzzle:
             return bestSquare, bestSquarePoss
 
     def solve(self):
-        '''this is a recursive function that solves the puzzle by adding values
-            one at a time and testing whether a solution can be found'''
+        '''this is a recursive function that solves the puzzle by adding values one at a time to the
+            square with the least possibilities and testing whether a solution can be found'''
         backup = self.backup_values()
         square, possibilities = self.select_square()
         
