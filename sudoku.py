@@ -83,15 +83,15 @@ class SudokuPuzzle:
         self.rowI = [self.varDict[self.varList[index]] for index in range(72,81)]
 
         # for colums, the index just goes up in multiples of 9
-        self.column1 = [self.varDict[self.varList[index]] for index in range(0,72,9)]
-        self.column2 = [self.varDict[self.varList[index]] for index in range(1,73,9)]
-        self.column3 = [self.varDict[self.varList[index]] for index in range(2,74,9)]
-        self.column4 = [self.varDict[self.varList[index]] for index in range(3,75,9)]
-        self.column5 = [self.varDict[self.varList[index]] for index in range(4,76,9)]
-        self.column6 = [self.varDict[self.varList[index]] for index in range(5,77,9)]
-        self.column7 = [self.varDict[self.varList[index]] for index in range(6,78,9)]
-        self.column8 = [self.varDict[self.varList[index]] for index in range(7,79,9)]
-        self.column9 = [self.varDict[self.varList[index]] for index in range(8,80,9)]
+        self.column1 = [self.varDict[self.varList[index]] for index in range(0,73,9)]
+        self.column2 = [self.varDict[self.varList[index]] for index in range(1,74,9)]
+        self.column3 = [self.varDict[self.varList[index]] for index in range(2,75,9)]
+        self.column4 = [self.varDict[self.varList[index]] for index in range(3,76,9)]
+        self.column5 = [self.varDict[self.varList[index]] for index in range(4,77,9)]
+        self.column6 = [self.varDict[self.varList[index]] for index in range(5,78,9)]
+        self.column7 = [self.varDict[self.varList[index]] for index in range(6,79,9)]
+        self.column8 = [self.varDict[self.varList[index]] for index in range(7,80,9)]
+        self.column9 = [self.varDict[self.varList[index]] for index in range(8,81,9)]
 
         # create a list of rows
         self.rows = [self.rowA, self.rowB, self.rowC, self.rowD, self.rowE, self.rowF, self.rowG,

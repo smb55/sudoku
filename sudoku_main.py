@@ -62,6 +62,11 @@ class ProgramGUI:
         self.rowList = ['topLeftTop', 'topLeftMid', 'topLeftBottom', 'topMiddleTop', 'topMiddleMid', 'topMiddleBottom', 'topRightTop', 'topRightMid', 'topRightBottom', 'middleLeftTop', 'middleLeftMid', 'middleLeftBottom',
                    'middleMiddleTop', 'middleMiddleMid', 'middleMiddleBottom', 'middleRightTop', 'middleRightMid', 'middleRightBottom', 'bottomLeftTop', 'bottomLeftMid', 'bottomLeftBottom', 'bottomMiddleTop',
                    'bottomMiddleMid', 'bottomMiddleBottom', 'bottomRightTop', 'bottomRightMid', 'bottomRightBottom']
+
+        self.rowList2 = ['topLeftTop', 'topMiddleTop', 'topRightTop', 'topLeftMid', 'topMiddleMid',  'topRightMid',  'topLeftBottom', 'topMiddleBottom', 'topRightBottom', 'middleLeftTop', 'middleMiddleTop', 'middleRightTop',
+                        'middleLeftMid', 'middleMiddleMid', 'middleRightMid', 'middleLeftBottom', 'middleMiddleBottom', 'middleRightBottom', 'bottomLeftTop', 'bottomMiddleTop', 'bottomRightTop', 'bottomLeftMid',
+                        'bottomMiddleMid','bottomRightMid', 'bottomLeftBottom', 'bottomMiddleBottom', 'bottomRightBottom']
+        
         self.squareList = [self.topLeft, self.topMiddle, self.topRight, self.middleLeft, self.middleMiddle, self.middleRight, self.bottomLeft, self.bottomMiddle, self.bottomRight]
         # there are three rows in each square, so in order to match rows to squares there needs to be three of each square in the list
         self.squareList_exp = []
@@ -70,22 +75,16 @@ class ProgramGUI:
             self.squareList_exp.append(square)
             self.squareList_exp.append(square)
 
-        # can the zip these lists to make a list of tuples with the row name and the square frame that it should be packed into
-        self.rowSquareList = zip(self.rowList, self.squareList_exp)
-
-        self.rowDict = {row: tkinter.Frame(square) for row, square in self.rowSquareList}
+        self.rowDict = {row: tkinter.Frame(square) for row, square in zip(self.rowList, self.squareList_exp)}
         
         #fill rows
-        #there are three squares per row, so to zip the lists we need to triple the occurences of each row in the list
         self.rowList_exp = []
-        for row in self.rowList:
+        for row in self.rowList2:
             self.rowList_exp.append(self.rowDict[row])
             self.rowList_exp.append(self.rowDict[row])
             self.rowList_exp.append(self.rowDict[row])
 
-        self.varRowList = zip(self.varList, self.rowList_exp)
-
-        self.entryDict = {var: tkinter.Entry(row, width=3, textvariable=self.varDict[var], font=fontDetails, justify='center').pack(side='left', padx=1, pady=1) for var, row in self.varRowList}
+        self.entryDict = {var: tkinter.Entry(row, width=3, textvariable=self.varDict[var], font=fontDetails, justify='center').pack(side='left', padx=1, pady=1) for var, row in zip(self.varList, self.rowList_exp)}
                                
         #pack rows
         for row in self.rowList:
@@ -112,7 +111,7 @@ class ProgramGUI:
         try:
             self.sudoku = sudoku.SudokuPuzzle(self.values_list)
             validInput = True
-        except SudokuError:
+        except sudoku.SudokuError:
             validInput = False
             tkinter.messagebox.showerror('Error!', 'Error creating sudoku. There is either a number clash or invalid symbols present.')
             
