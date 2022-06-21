@@ -109,7 +109,7 @@ class ProgramGUI:
 
         # create the SudokuPuzzle. Shows error dialoge if bad values are submitted.
         try:
-            self.sudoku = sudoku.SudokuPuzzle(self.values_list)
+            self.sudoku_instance = sudoku.SudokuPuzzle(self.values_list)
             validInput = True
         except sudoku.SudokuError:
             validInput = False
@@ -117,7 +117,7 @@ class ProgramGUI:
             
         if validInput:
             # run the solve function and either update the boxes with the solution, or advise the problem is impossible
-            result = self.sudoku.solve()
+            result = self.sudoku_instance.solve()
             if result == 'completed':
                 self.update_boxes()
             elif result == 'impossible':
@@ -126,21 +126,21 @@ class ProgramGUI:
     def build_sudoku(self, difficulty):
         '''create a new sudoku puzzle'''
         emptyValues = ['' for i in range(81)]
-        self.sudoku = sudoku.SudokuPuzzle(emptyValues)
-        self.sudoku.assign_seeds()
-        self.sudoku.solve()
-        self.sudoku.remove_values(difficulty)
+        self.sudoku_instance = sudoku.SudokuPuzzle(emptyValues)
+        self.sudoku_instance.assign_seeds()
+        self.sudoku_instance.solve()
+        self.sudoku_instance.remove_values(difficulty)
         self.update_boxes()
         
     def update_boxes(self):
         '''Update the GUI boxes with the characters from the solved SudokuPuzzle'''
 
         for var in self.varList:
-            self.varDict[var].set(self.sudoku.varDict[var].get())
+            self.varDict[var].set(self.sudoku_instance.varDict[var].get())
             
     def clear_boxes(self):
         '''Clear all the boxes in the GUI.'''
-        for box in self.sudoku.rows:
+        for box in self.sudoku_instance.rows:
             for value in box:
                 value.set('')
 
