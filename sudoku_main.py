@@ -339,7 +339,7 @@ class ProgramGUI:
                         'bottomMiddleMid','bottomRightMid', 'bottomLeftBottom', 'bottomMiddleBottom', 'bottomRightBottom']
         
         self.squareList = [self.topLeft, self.topMiddle, self.topRight, self.middleLeft, self.middleMiddle, self.middleRight, self.bottomLeft, self.bottomMiddle, self.bottomRight]
-        # there are three rows in each square, so in order to match rows to squares there needs to be three of each square in the list
+        # there are three rows in each square, so in order to match rows to squares with zip there needs to be three of each square in the list
         self.squareList_exp = []
         for square in self.squareList:
             self.squareList_exp.append(square)
